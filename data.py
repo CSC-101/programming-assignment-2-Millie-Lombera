@@ -28,22 +28,21 @@ class Point:
                 math.isclose(self.x, other.x) and
                 math.isclose(self.y, other.y))
 
-
 # Representation of a duration as minutes and seconds.
 class Duration:
     # Initialize a new Duration object.
     # input: minutes as an integer
     # input: seconds as an integer
-    def __init__(self, minutes:int, seconds: int):
+    def __init__(self,hours: int, minutes:int, seconds: int):
+        self.hours = hours
         self.minutes = minutes
         self.seconds = seconds
-
 
     # Provide a developer-friendly string representation of the object.
     # input: Duration for which a string representation is desired. 
     # output: string representation
     def __repr__(self) -> str:
-        return 'Duration({}, {})'.format(self.minutes, self.seconds)
+        return 'Duration({}, {})'.format(self.hours,self.minutes, self.seconds)
 
 
     # Compare the Duration object with another value to determine equality.
@@ -52,9 +51,12 @@ class Duration:
     # output: boolean indicating equality
     def __eq__(self, other) -> bool:
         return (other is self or
-                type(other) == Duration and
+                type(other) == Duration and self.hours == other.hours and
                 self.minutes == other.minutes and
                 self.seconds == other.seconds)
+
+    def total_seconds(self)-> int:
+        return self.hours * 3600 + self.minutes * 60 + self.seconds
 
 
 # Representation of a song.
@@ -67,6 +69,9 @@ class Song:
         self.artist = artist
         self.title = title
         self.duration = duration
+
+    def total_seconds(self)-> int:
+        return self.duration.hours * 3600 + self.duration.minutes * 60 + self.duration.seconds
 
 
     # Provide a developer-friendly string representation of the object.
