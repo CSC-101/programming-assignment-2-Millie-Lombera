@@ -60,6 +60,19 @@ class TestCases(unittest.TestCase):
         test1 = song_shorter_than(songs,Duration(0,4,0))
         expected = [artist_song1,artist_song2]
         self.assertEqual(expected,test1)
+
+    def test_songs_shorter_than2(self):
+        d1 = Duration(0,2,30)
+        d2 = Duration(0,3,40)
+        d3 = Duration(0,10,3)
+        artist_song1 = Song("Dr.Dre","song 1",d1)
+        artist_song2 = Song("Dr.G", "song 2", d2)
+        artist_song3 = Song("Dr.F", "song 3", d3)
+
+        songs = [artist_song1,artist_song2,artist_song3]
+        test2 = song_shorter_than(songs, Duration(0, 10, 4))
+        expected = [artist_song1, artist_song2, artist_song3]
+        self.assertEqual(expected, test2)
 # 8 min 40 sec, 3min,3min20,3min 10 sec
     # Part 4
         #
@@ -71,6 +84,15 @@ class TestCases(unittest.TestCase):
         playlist = [0, 2, 1, 3, 0]
         actual = running_time(songs, playlist)
         self.assertEqual(Duration(0,18,10), actual)
+
+    def test_running_time2(self):
+        songs = [Song("LIA", "Lost in April", Duration(0, 4, 20)),
+                 Song("stop", "June", Duration(0, 3, 0)),
+                 Song("we", "Wind", Duration(0, 3, 20)),
+                 Song("cindy", "Airplanes", Duration(0, 3, 10))]
+        playlist2 = [3,2,1]
+        actual = running_time(songs, playlist2)
+        self.assertEqual(Duration(0, 9, 30), actual)
     # Part 5
     def test_validate_route(self):
         citys = [
@@ -79,8 +101,15 @@ class TestCases(unittest.TestCase):
             ['atascadero', 'santa margarita'],
             ['atascadero', 'creston']]
         test1 = validate_route(citys, [])
+        self.assertEqual(True, test1)
+
+    def test_validate_route2(self):
+        citys = [
+            ['san luis obispo', 'santa margarita'],
+            ['san luis obispo', 'pismo beach'],
+            ['atascadero', 'santa margarita'],
+            ['atascadero', 'creston']]
         test2 = validate_route(citys, ['san luis obispo', 'atascadero'])
-        self.assertEqual(True,test1)
         self.assertEqual(False,test2)
 
     # Part 6
@@ -89,7 +118,10 @@ class TestCases(unittest.TestCase):
         actual = longest_repetition(list_test1)
         self.assertEqual(4,actual)
 
-
+    def test_longest_repetition2(self):
+        list_test2 = []
+        actual = longest_repetition(list_test2)
+        self.assertEqual(None,actual)
 
 
 
